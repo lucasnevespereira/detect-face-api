@@ -1,29 +1,8 @@
 const bcrypt = require("bcrypt");
 const db = require("../config/db");
 
-const database = {
-  users: [
-    {
-      id: "123",
-      name: "Sally",
-      email: "sally@mail.com",
-      password: "test",
-      entries: 0,
-      joined: new Date(),
-    },
-    {
-      id: "124",
-      name: "Peter",
-      email: "peter@mail.com",
-      password: "test2",
-      entries: 0,
-      joined: new Date(),
-    },
-  ],
-};
-
 exports.index = (req, res) => {
-  res.send(database.users);
+  res.send("working");
 };
 
 exports.signin = (req, res) => {
