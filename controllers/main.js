@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 const database = {
   users: [
     {
@@ -24,6 +26,14 @@ exports.index = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+  // bcrypt.compare(
+  //   req.body.password,
+  //   hash,
+  //   (err, res) => {
+  //     console.log(res);
+  //   }
+  // );
+
   if (
     req.body.email === database.users[0].email &&
     req.body.password === database.users[0].password
@@ -36,6 +46,13 @@ exports.signin = (req, res) => {
 
 exports.register = (req, res) => {
   const { email, name, password } = req.body;
+
+  bcrypt.hash(password, 10, (err, hash) => {
+    if (!err) {
+      console.log(hash);
+    }
+  });
+
   database.users.push({
     id: "125",
     name: name,
