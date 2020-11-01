@@ -13,4 +13,6 @@ router.get("/profile/:id", mainCtrl.profile);
 
 router.put("/image", mainCtrl.image);
 
+router.post("/imageUrl", mainCtrl.handleApiCall);
+
 module.exports = router;

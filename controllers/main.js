@@ -1,5 +1,23 @@
 const bcrypt = require("bcrypt");
+const Clarifai = require("clarifai");
 const db = require("../config/db");
+
+require("dotenv").config();
+
+const app = new Clarifai.App({
+  apiKey: process.env.clarifai_api,
+});
+
+exports.handleApiCall = (req, res) => {
+  app.models
+    .predict(Clarifai.FACE_DETECT_MODEL, req.body.input)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.status(400).json("error with the url");
+    });
+};
 
 exports.index = (req, res) => {
   res.send("working");
