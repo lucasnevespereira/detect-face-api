@@ -1,6 +1,6 @@
 const knex = require("knex");
 
-const postgres = knex({
+const db = knex({
   client: "pg",
   connection: {
     host: "127.0.0.1",
@@ -10,4 +10,4 @@ const postgres = knex({
   },
 });
 
-module.exports = postgres;
+module.exports = db;

@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const db = require("../config/db");
 
 const database = {
   users: [
@@ -53,16 +54,17 @@ exports.register = (req, res) => {
     }
   });
 
-  database.users.push({
-    id: "125",
-    name: name,
-    email: email,
-    password: password,
-    entries: 0,
-    joined: new Date(),
-  });
-
-  res.json(database.users[database.users.length - 1]);
+  db("users")
+    .returning("*")
+    .insert({
+      email: email,
+      name: name,
+      joined: new Date(),
+    })
+    .then((user) => {
+      res.json(user[0]);
+    })
+    .catch((err) => res.status(400).json("unable to register"));
 };
 
 exports.profile = (req, res) => {
